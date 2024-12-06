@@ -1,0 +1,42 @@
+.typingTxt {
+    width: 100%;
+    margin-bottom: 10%;
+    .cursor {
+        position: relative;
+        color: #fff;
+        margin: 0 auto;
+        border-right: 1px solid rgba(255, 255, 255, 0.75);
+        font-size: 18px;
+        font-weight: 600;
+        text-align: center;
+        white-space: nowrap;
+        overflow: hidden;
+        &.typewriter-animation {
+            animation:
+                typewriter 1s steps(75) 1s 1 normal both,
+                blinkingCursor 500ms steps(75) normal both;
+        }
+    }
+
+    @keyframes typewriter {
+        from {
+            width: 0;
+        }
+
+        to {
+            width: 100%;
+        }
+    }
+
+    @keyframes blinkingCursor {
+        from {
+            border-right-color: rgb(255, 255, 255);
+        }
+
+        to {
+            border-right-color: transparent;
+        }
+    }
+}
+
+

@@ -1,0 +1,38 @@
+.listBox-style {
+    .button {
+        height: 35px;
+        width: 100%;
+        background-color: #fff;
+        border: 1px solid lightgrey;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        font-size: 14px;
+        font-weight: 400;
+        color: #000;
+
+        .btn-text {
+            text-align: start;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            width: 95%;
+        }
+    }
+
+    .active {
+        background-color: rgb(52, 97, 162);
+        cursor: pointer;
+        border-radius: 8px;
+        color: #fff;
+    }
+
+    .list-option {
+        height: 200px;
+        overflow: auto;
+        background-color: #f6f6f6;
+        border: 1px solid #eaeaea;
+        border-radius: 5px;
+        z-index: 1;
+    }
+}
