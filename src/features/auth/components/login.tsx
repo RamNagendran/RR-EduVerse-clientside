@@ -131,7 +131,7 @@ const LoginPage: React.FC = () => {
                 user: res.userDetails,
                 login_at: res.login_at
             }))
-            navigate('/home');
+            navigate('/home/dashboard');
             return
         }
     }, [formState]);

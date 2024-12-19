@@ -6,8 +6,8 @@ const AddTaskIcon = (props) => (
     data-name="Layer 1"
     viewBox="0 0 300 300"
     {...props}
-    height={20}
-    width={20}
+    height={17}
+    width={17}
   >
     <path
       d="M230.64 177.3a48.15 48.15 0 1 0 48.15 48.14 48.14 48.14 0 0 0-48.15-48.14Zm28.81 50.31h-25.23v24.7h-7.16v-24.7h-25.23v-6.26h25.23v-24.48h7.16v24.48h25.23Z"

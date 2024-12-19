@@ -1,0 +1,17 @@
+import * as React from "react";
+
+const EmpIcon = (props) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    id="Layer_1"
+    data-name="Layer 1"
+    viewBox="0 0 24 24"
+    {...props}
+    height={16}
+    width={16}
+  >
+    <path style={{fill: props.stroke}} d="M12 12c-3.309 0-6-2.691-6-6s2.691-6 6-6 6 2.691 6 6-2.691 6-6 6m2.714 2.42-1.843 2.77 1.86 6.81H20a1 1 0 0 0 1-1c0-4.017-2.646-7.426-6.286-8.58m-3.586 2.77-1.843-2.77c-3.64 1.154-6.286 4.563-6.286 8.58a1 1 0 0 0 1 1h5.269z"></path>
+  </svg>
+);
+
+export default EmpIcon;

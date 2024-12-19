@@ -1,9 +1,9 @@
 import * as React from "react"
-const AnalyseIcon = (props) => (
+const AnalyzeIcon = (props) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width={25}
-    height={25}
+    width={17}
+    height={17}
     viewBox="0 0 286.439 286.439"
     {...props}
   >
@@ -18,4 +18,4 @@ const AnalyseIcon = (props) => (
       d="M199.306 151.167c-7.204-.435-12.711-6.648-12.276-13.852a6 6 0 0 0-11.979-.723c-.833 13.809 9.724 25.72 23.532 26.553a6 6 0 0 0 .723-11.978z" />
   </svg>
 )
-export default AnalyseIcon;
+export default AnalyzeIcon;
