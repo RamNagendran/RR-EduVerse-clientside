@@ -34,3 +34,152 @@
         }
     }
 }
+
+.add-user{
+    .modal-dialog{
+        max-width: 800px;
+        width: 70%;
+    }
+    .add-user-header{
+        background-color: #F7F9FD;
+        padding: 10px;
+        .title{
+            font-weight: 700;
+            font-size: 14px;
+        }
+    }
+    .add-user-body{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 30px 50px;
+        .error-box {
+            background-color: #f8d7da; /* Light red background */
+            color: #721c24; /* Dark red text */
+            border: 1px solid #f5c6cb; /* Light red border */
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            width: 100%;
+            margin-bottom: 10px;
+          }
+        .add-user-form{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 80%;
+            max-width: 600px;
+            span{
+                color: red;
+            }
+            .form-row {
+                align-items: center;
+                margin-bottom: 10px;
+                width: 100%;
+            }
+            .label {
+                font-weight: bold;
+                text-align: left;
+                font-weight: 400;
+                font-size: 14px;
+            }
+            .input {
+                flex-grow: 1;
+                display: flex;
+                position: relative;
+                max-height: 36px;
+                .input-box {
+                    width: 100%;
+                    padding: 8px;
+                    font-size: 14px;
+                    border: 1px solid #ccc;
+                    border-radius: 4px;
+                    outline: none;
+                    font-weight: 400;
+                    height: 36px;
+                }
+
+                .eye-icon{
+                    position: absolute;
+                    right: 10px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    cursor: pointer;
+                }
+        
+                input:focus {
+                    border-color: #007bff;
+                    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+                }
+                
+                select{
+                    width: calc(50% - 10px);
+                    padding: 8px;
+                    font-size: 14px;
+                    border: 1px solid #ccc;
+                    border-radius: 4px;
+                    outline: none;
+                    font-weight: 400;
+                    height: 36px;
+                }
+            }
+            .form-row-name{
+                display: flex;
+                gap: 10px;
+                width: 100%;
+                .name{
+                    display: flex;
+                    flex-direction: column;
+                    width: 50%;
+                    margin-bottom: 10px;
+                }
+            }
+            .form-row-password{
+                display: flex;
+                gap: 10px;
+                width: 100%;
+                .password{
+                    display: flex;
+                    flex-direction: column;
+                    width: 50%;
+                    margin-bottom: 10px;
+                }
+            }
+            .form-row-generatePassword{
+                margin-bottom: 10px;
+            }
+            .not-provided{
+                display: flex;
+                padding: 0px;
+                margin-top: 0px;
+                font-size: 11px;
+                color: red;
+            }
+            label{
+                padding: 0px;
+                margin: 0px;
+            }
+            .generateButton{
+                padding: 3px;
+                background-color: rgba(52, 97, 162, 1);
+                width: 200px;
+            }
+        }
+    }
+    .add-user-footer{
+        background-color: #F7F9FD;
+        padding: 5px;
+        .add-user-button{
+            width: 100px;
+            padding: 3px;
+            &.add{
+                background-color: rgba(52, 97, 162, 1);
+            }
+            &.close{
+                background-color: #9E9E9E;
+                border: 0;
+            }
+        }
+    }
+}
