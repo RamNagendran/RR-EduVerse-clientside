@@ -25,7 +25,7 @@ function StaticHeader() {
 
     return (
         <React.Fragment>
-            <div className="header p-1 p-sm-2"  >
+            <div className="header p-1"  >
                 <div className="page-title" >{title()}</div>
                 <div className="user-circle" onClick={() => setOpenDrawer(true)}>
                     {(user?.firstname && user?.lastname) ? getInitials(`${user.firstname} ${user.lastname}`) : 'U'}

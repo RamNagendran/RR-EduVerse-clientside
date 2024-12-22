@@ -1,44 +1,45 @@
-import React, { useState } from 'react';
-import { Image } from 'react-bootstrap';
-import Offcanvas from 'react-bootstrap/Offcanvas';
-import RRPROJX from '../../../assets/images/SVGs/rrprojx.svg';
+import React from 'react';
 import { ROLE } from '../../../common/constants';
-
-
-interface Iuser {
-    user_id: string;
-    email: string;
-    phone: number;
-    username: string;
-    firstname: string;
-    lastname: string;
-    role_id: number;
-    status: string;
-}
-
-interface UserDrawerProps {
-    openDrawer: boolean;
-    setOpenDrawer: React.Dispatch<React.SetStateAction<boolean>>;
-    user: Iuser;
-}
+import Offcanvas from 'react-bootstrap/Offcanvas';
+import { UserDrawerProps } from '../types/home.type';
+import RRPROJX from '../../../assets/images/SVGs/rrprojx.svg';
+import { Image, OverlayTrigger, Tooltip } from 'react-bootstrap';
 
 const UserDrawer: React.FC<UserDrawerProps> = ({ openDrawer, setOpenDrawer, user }) => {
 
+    const getRoleDescription = (role: string): string => {
+        switch (role) {
+            case 'ADMIN':
+                return 'Super Admin: Full access to all features including user management, permissions control, content management, and system configurations';
+            case 'TRAINER':
+                return 'Trainer: Access to course management, student progress tracking, and content creation';
+            case 'COUNSELOR':
+                return 'Counselor: Access to student counseling features and progress reports';
+            case 'STUDENT':
+                return 'Student: Access to learning materials, assignments, and personal progress tracking';
+            case 'PLACEMENT':
+                return 'Placement: Access to job postings, candidate tracking, and placement statistics';
+            default:
+                return `${role} Role`;
+        }
+    };
 
     const roleBadge = (): JSX.Element => {
         const role = ROLE[user.role_id];
         return (
-            <div className='role-badge' data-role={role}>
-                {role}
-            </div>
+            <OverlayTrigger
+                placement="left"
+                overlay={<Tooltip>{getRoleDescription(role)}</Tooltip>}
+            >
+                <div className='role-badge' data-role={role}>{role}</div>
+            </OverlayTrigger>
         );
     }
-
-    console.log({user});
 
     return (
         <Offcanvas show={openDrawer} placement="end" style={{ width: "480px" }} className="user-drawer">
             <Offcanvas.Header className="d-header border-bottom">
+                <div onClick={() => setOpenDrawer(false)} className='close-icon'>✗</div>
                 <Offcanvas.Title className='w-100  d-flex align-items-center justify-content-between' >
                     <div className="d-flex align-items-center gap-2">
                         <div className="default-avatar rounded-circle text-white d-flex align-items-center justify-content-center">
@@ -72,8 +73,14 @@ const UserDrawer: React.FC<UserDrawerProps> = ({ openDrawer, setOpenDrawer, user
                                 <div title={user.email} className='content' style={{ textTransform: "lowercase" }}  >{user.email}</div>
                             </div>
                             <div className='details-set' >
-                                <div className=' title' >User Name</div>
-                                <div title={user.username} className='content' style={{ textTransform: "lowercase" }} >{user.username}</div>
+                                <div className=' title' >Phone</div>
+                                <div title={user.phone.toString()} className='content' style={{ textTransform: "lowercase" }} >+91 - {user.phone}</div>
+                            </div>
+                        </div>
+                        <div style={{ marginBottom: "10px" }} className='p-2 d-flex align-items-center justify-content-between w-100' >
+                            <div className='details-set' >
+                                <div className=' title' >User Id</div>
+                                <div title={user.user_id} className='content' style={{ textTransform: "lowercase" }} >{user.user_id}</div>
                             </div>
                         </div>
                     </div>
@@ -88,6 +95,5 @@ const UserDrawer: React.FC<UserDrawerProps> = ({ openDrawer, setOpenDrawer, user
         </Offcanvas>
     );
 }
-
 
 export default UserDrawer;
