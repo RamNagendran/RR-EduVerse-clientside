@@ -10,7 +10,7 @@ export enum ErrorType {
 
 export interface AppError extends Error {
     type: ErrorType;
-    statusCode?: number;
+    status?: number;
     details?: any;
 }
 
@@ -18,14 +18,14 @@ export class CustomError implements AppError {
     name: string;
     message: string;
     type: ErrorType;
-    statusCode?: number;
+    status?: number;
     details?: any;
 
     constructor(type: ErrorType, message: string, statusCode?: number, details?: any) {
         this.name = 'CustomError';
         this.type = type;
         this.message = message;
-        this.statusCode = statusCode;
+        this.status = statusCode;
         this.details = details;
     }
 }
