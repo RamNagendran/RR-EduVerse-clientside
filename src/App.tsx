@@ -14,7 +14,7 @@ const Personnel = lazy(() => import('./features/pages/personnels/components'));
 
 // Loading component for Suspense fallback
 const Loading = () => (
-  <div className="loading-spinner">
+  <div className="loading-spinner d-flex align-items-center justify-content-center h-100">
     <div className="spinner-border text-primary" role="status">
       <span className="visually-hidden">Loading...</span>
     </div>

@@ -92,7 +92,7 @@ const MenuBar: React.FC = (): JSX.Element => {
                 className={isActive(path) ? "icon-box" : "preSelect-box"}
             >
                 <Icon stroke={isActive(path) ? "#fff" : "rgba(80, 83, 95, 1)"} />
-                <div>{label}</div>
+                <div className="d-none d-lg-block" >{label}</div>
             </div>
         )
     };
@@ -103,6 +103,7 @@ const MenuBar: React.FC = (): JSX.Element => {
      * @returns {void}
      */
     function handleLogout(): void {
+        localStorage.removeItem('authToken');
         dispatch(clearAuth())
         navigate('/')
     }
@@ -115,7 +116,7 @@ const MenuBar: React.FC = (): JSX.Element => {
             </div>
             <div onClick={handleLogout} className="preSelect-box">
                 <img src={Logout} height={18} width={18} alt="logout-icon" />
-                <div>LOGOUT</div>
+                <div className="d-none d-lg-block" >LOGOUT</div>
             </div>
         </div>
     )

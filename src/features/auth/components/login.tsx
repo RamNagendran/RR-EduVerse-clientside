@@ -131,6 +131,7 @@ const LoginPage: React.FC = () => {
                 user: res.userDetails,
                 login_at: res.login_at
             }))
+            localStorage.setItem('authToken', res.token)
             navigate('/home/dashboard');
             return
         }
