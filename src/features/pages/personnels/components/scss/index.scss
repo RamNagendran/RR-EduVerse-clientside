@@ -3,6 +3,7 @@
     width: 100%;
     background-color: #fff;
     border-radius: 8px;
+
     .header {
 
         background-color: #fff;
@@ -16,7 +17,7 @@
         border-bottom: none;
         display: flex;
         align-items: center;
-        justify-content: flex-end;
+        justify-content: space-between;
 
         .title {
             font-weight: 700;
@@ -35,64 +36,102 @@
             background-color: #F26B0F;
             border: none;
         }
-        
+
+        .search-input {
+            display: flex;
+            width: 300px;
+            padding: 2px 8px 2px 25px;
+            align-items: center;
+            border-radius: 6px;
+            background: #FFF;
+            border: 1px solid #f6f6f6;
+            box-shadow: 0px 0px 0px 1px rgba(104, 113, 130, 0.16), 0px 1px 2px 0px rgba(0, 0, 0, 0.06);
+            color: #A5A5A5;
+            font-weight: 600;
+            font-size: 13px;
+
+            &:focus-visible {
+                outline: none;
+            }
+
+            &::placeholder {
+                color: #A5A5A5;
+                font-weight: 600;
+                font-size: 13px;
+            }
+        }
+
+
     }
 }
 
-.add-user{
-    .modal-dialog{
+.add-user {
+    .modal-dialog {
         max-width: 800px;
         width: 70%;
     }
-    .add-user-header{
+
+    .add-user-header {
         background-color: #F7F9FD;
         padding: 10px;
-        .title{
+
+        .title {
             font-weight: 700;
             font-size: 14px;
         }
     }
-    .add-user-body{
+
+    .add-user-body {
         display: flex;
         justify-content: center;
         align-items: center;
         padding: 30px 50px;
+
         .error-box {
-            background-color: #f8d7da; /* Light red background */
-            color: #721c24; /* Dark red text */
-            border: 1px solid #f5c6cb; /* Light red border */
+            background-color: #f8d7da;
+            /* Light red background */
+            color: #721c24;
+            /* Dark red text */
+            border: 1px solid #f5c6cb;
+            /* Light red border */
             padding: 10px;
             border-radius: 5px;
             font-size: 14px;
             width: 100%;
             margin-bottom: 10px;
-          }
-        .add-user-form{
+        }
+
+        .add-user-form {
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             width: 80%;
             max-width: 600px;
-            span{
+
+            span {
                 color: red;
             }
+
             .form-row {
                 align-items: center;
                 margin-bottom: 10px;
                 width: 100%;
             }
+
             .label {
                 font-weight: bold;
                 text-align: left;
                 font-weight: 400;
                 font-size: 14px;
             }
+
             .input {
                 flex-grow: 1;
                 display: flex;
                 position: relative;
                 max-height: 36px;
+
                 .input-box {
                     width: 100%;
                     padding: 8px;
@@ -104,20 +143,20 @@
                     height: 36px;
                 }
 
-                .eye-icon{
+                .eye-icon {
                     position: absolute;
                     right: 10px;
                     top: 50%;
                     transform: translateY(-50%);
                     cursor: pointer;
                 }
-        
+
                 input:focus {
                     border-color: #007bff;
                     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
                 }
-                
-                select{
+
+                select {
                     width: calc(50% - 10px);
                     padding: 8px;
                     font-size: 14px;
@@ -128,59 +167,71 @@
                     height: 36px;
                 }
             }
-            .form-row-name{
+
+            .form-row-name {
                 display: flex;
                 gap: 10px;
                 width: 100%;
-                .name{
+
+                .name {
                     display: flex;
                     flex-direction: column;
                     width: 50%;
                     margin-bottom: 10px;
                 }
             }
-            .form-row-password{
+
+            .form-row-password {
                 display: flex;
                 gap: 10px;
                 width: 100%;
-                .password{
+
+                .password {
                     display: flex;
                     flex-direction: column;
                     width: 50%;
                     margin-bottom: 10px;
                 }
             }
-            .form-row-generatePassword{
+
+            .form-row-generatePassword {
                 margin-bottom: 10px;
             }
-            .not-provided{
+
+            .not-provided {
                 display: flex;
                 padding: 0px;
                 margin-top: 0px;
                 font-size: 11px;
                 color: red;
             }
-            label{
+
+            label {
                 padding: 0px;
                 margin: 0px;
             }
-            .generateButton{
+
+            .generateButton {
                 padding: 3px;
                 background-color: rgba(52, 97, 162, 1);
                 width: 200px;
             }
         }
     }
-    .add-user-footer{
+
+    .add-user-footer {
         background-color: #F7F9FD;
         padding: 5px;
-        .add-user-button{
+
+        .add-user-button {
             width: 100px;
             padding: 3px;
-            &.add{
+
+            &.add {
                 background-color: rgba(52, 97, 162, 1);
             }
-            &.close{
+
+            &.close {
                 background-color: #9E9E9E;
                 border: 0;
             }

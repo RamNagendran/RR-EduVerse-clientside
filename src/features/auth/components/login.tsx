@@ -135,7 +135,7 @@ const LoginPage: React.FC = () => {
             navigate('/home/dashboard');
             return
         }
-    }, [formState]);
+    }, [formState, dispatch, navigate]);
 
     /**
      * Error message component for displaying validation errors

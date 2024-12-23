@@ -69,7 +69,7 @@ const PasswordsPack: React.FC<IPassPackProps> = ({
         )
     }
 
-    const generateSecurePassword = (length: number = 10): string => {
+    const generateSecurePassword = useCallback((length: number = 10): string => {
         const charsets = {
             lower: "abcdefghijklmnopqrstuvwxyz",
             upper: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
@@ -96,8 +96,7 @@ const PasswordsPack: React.FC<IPassPackProps> = ({
         return password
             .sort(() => 0.5 - Math.random())
             .join('');
-    };
-
+    }, []);
 
     const handlePasswordGeneration = useCallback(() => {
 
