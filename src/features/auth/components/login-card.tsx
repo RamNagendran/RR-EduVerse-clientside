@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import { Button, Image, Card, FloatingLabel, Form } from 'react-bootstrap';
-import { LoginCardProps, LoginFormState } from '../types/auth.types';
+import { LoginCardProps } from '../types/auth.types';
 
 // Import images
 import SLA from '../../../assets/images/image/sla.jpeg';

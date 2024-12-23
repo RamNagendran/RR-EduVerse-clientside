@@ -1,37 +1,44 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import './scss/index.scss'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { fetchUsers } from '../api/users.api';
 import { useSelector } from 'react-redux';
 import { IBaseResponse, Iuser } from '../types/personnel.type';
 import Nodata from '../../../../assets/images/SVGs/noData.svg';
-import { Button, Dropdown } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import UsersTable from './users-table';
+import AddUser from './addUser';
 
 type IResponse = IBaseResponse<Iuser[]> | IBaseResponse;
 
 const Personnel: React.FC = () => {
 
+    const [openModal, setOpenModal] = useState<boolean>(false)
+
+    const handleClick = () => {
+        setOpenModal(true)
+    }
+
     const { user } = useSelector((state: any) => state.auth)
     const [users, setUsers] = useState<Iuser[]>([]);
     const [preFetch, setPreFetch] = useState({ loading: false, message: '' });
 
-    const getUsers = async () => {
+    const getUsers = useCallback(async () => {
         setPreFetch({ loading: true, message: '' });
-        const res: IResponse = await fetchUsers({
-            username: user.username, role_id: user.role_id
-        });
+
+        const res: IResponse = await fetchUsers({ username: user.username, role_id: user.role_id });
         if (!res.success) {
             setPreFetch({ loading: false, message: res?.message });
-            return
+            return;
         }
+
         setPreFetch({ loading: false, message: '' });
         setUsers(res?.data || []);
-    };
+    }, [user.username, user.role_id]);
 
     useEffect(() => {
         getUsers()
-    }, [])
+    }, [getUsers])
 
 
     return (
@@ -51,7 +58,7 @@ const Personnel: React.FC = () => {
                             </Dropdown.Menu>
                         </Dropdown>
                     </div> */}
-                    <Button className='add-button' >+ USER</Button>
+                    <Button className='add-button' onClick={handleClick}  >+ USER</Button>
                 </div>
 
             </div>
@@ -68,6 +75,7 @@ const Personnel: React.FC = () => {
                         </div>
                     }
                 </div>}
+            {openModal && <AddUser getUsers={getUsers} openModal={openModal} setOpenModal={setOpenModal} />}
         </div>
     );
 };

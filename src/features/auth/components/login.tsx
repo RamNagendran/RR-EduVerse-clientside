@@ -142,9 +142,8 @@ const LoginPage: React.FC = () => {
      * @param {Object} props - Component props
      * @param {string} props.message - Error message to display
      */
-    const ErrorMessage: React.FC<{ message: string }> = ({ message }) => (
-        <div
-            className={`error-message ${errors.commonErrors ? 'mt-2' : ''}`}
+    const ErrorMessage: React.FC<{ message: string }> = ({ message }):JSX.Element => (
+        <div className={`error-message ${errors.commonErrors ? 'mt-2' : ''}`}
             style={{ textAlign: "start", fontSize: "12px", fontWeight: 700, color: "red" }}
         >
             {message}
