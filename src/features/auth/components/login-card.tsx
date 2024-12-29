@@ -1,14 +1,12 @@
-import React, { memo } from 'react';
+import React from 'react';
 import { Button, Image, Card, FloatingLabel, Form } from 'react-bootstrap';
 import { LoginCardProps } from '../types/auth.types';
 
-// Import images
 import SLA from '../../../assets/images/image/sla.jpeg';
 import RRPROJX from '../../../assets/images/SVGs/rrprojx.svg';
 import EyeOpen from '../../../assets/images/SVGs/eye-open.svg';
 import EyeClosed from '../../../assets/images/SVGs/eye-closed.svg';
 
-// Styles object to keep inline styles organized
 const styles = {
     input: (hasError: boolean) => ({
         borderRadius: '0px',
@@ -16,12 +14,7 @@ const styles = {
     })
 };
 
-/**
- * LoginCard Component
- * Displays the login form with email and password inputs
- * @component
- */
-const LoginCard: React.FC<LoginCardProps> = memo(({
+const LoginCard: React.FC<LoginCardProps> = ({
     formState,
     errors,
     UI_CONSTANTS,
@@ -47,7 +40,11 @@ const LoginCard: React.FC<LoginCardProps> = memo(({
                     <span className='description-text'>{UI_CONSTANTS.LOGIN_DESC}</span>
                 </Card.Text>
 
-                <FloatingLabel controlId="floatingEmailInput" label="Email address" className="w-100 mb-3">
+                <FloatingLabel 
+                    controlId="floatingEmailInput" 
+                    label="Email address" 
+                    className="w-100 mb-3"
+                >
                     <Form.Control
                         required
                         style={styles.input(Boolean(hasEmailError))}
@@ -71,10 +68,11 @@ const LoginCard: React.FC<LoginCardProps> = memo(({
                         placeholder="Password"
                     />
                     <img
-                        alt="eye-icon"
+                        alt="toggle password visibility"
                         src={formState.showPassword ? EyeOpen : EyeClosed}
                         onClick={togglePasswordVisibility}
                         className='eye-icon'
+                        role="button"
                     />
                     {errors.password && <ErrorMessage message={errors.password} />}
                 </FloatingLabel>
@@ -82,20 +80,28 @@ const LoginCard: React.FC<LoginCardProps> = memo(({
                 {errors.commonErrors && <ErrorMessage message={errors.commonErrors} />}
 
                 <Card.Text className="w-100 mt-5">
-                    <Button onClick={handleLogin} className='login-button' >
+                    <Button 
+                        onClick={handleLogin} 
+                        className='login-button'
+                    >
                         LOGIN
                     </Button>
                 </Card.Text>
 
                 <div className="w-100 mt-4 d-flex align-items-center justify-content-end">
-                    <span className='powered-by' >Powered by</span>
-                    <Image src={RRPROJX} className='logo' alt="RRPROJX logo" />
+                    <span className='powered-by'>Powered by</span>
+                    <Image 
+                        src={RRPROJX} 
+                        className='logo' 
+                        alt="RRPROJX logo" 
+                    />
                 </div>
             </Card.Body>
         </Card>
     );
-}, (prevProps, nextProps) => {
-    // Memoization comparison
+};
+
+export default React.memo(LoginCard, (prevProps, nextProps) => {
     return (
         prevProps.formState.email === nextProps.formState.email &&
         prevProps.formState.password === nextProps.formState.password &&
@@ -103,5 +109,3 @@ const LoginCard: React.FC<LoginCardProps> = memo(({
         JSON.stringify(prevProps.errors) === JSON.stringify(nextProps.errors)
     );
 });
-
-export default LoginCard;

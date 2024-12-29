@@ -54,6 +54,7 @@ const Personnel: React.FC = () => {
 
 
     const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        setUsers(usersBackup);
         if (e.key === 'Enter') {
             e.preventDefault();
             // Trim and convert to lowercase for case-insensitive search

@@ -1,10 +1,14 @@
-import React, { Suspense, lazy } from 'react';
+import React, { Suspense, lazy, useEffect } from 'react';
 import './App.css'
 import './assets/sass/style.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Route, Routes } from 'react-router-dom';
 import { ErrorBoundary, Fallback } from './common/error-handlings/errorBoundary';
 import PrivateRoute from './common/privateRoute';
+import Authorization from './features/pages/authorization/components';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch } from './stateManager/reducer/store';
+import { fetchRolesThunk } from './stateManager/reducer/rolesThunk';
 
 // Lazy loaded components
 const LoginPage = lazy(() => import('./features/auth/components/login'));
@@ -40,6 +44,18 @@ const Loading = () => (
  */
 
 const App:React.FC = () => {
+  const dispatch = useDispatch<AppDispatch>();
+  const { user, token } = useSelector((state:any) => state.auth);
+
+  useEffect(() => {
+    // This will trigger on app load if user is already logged in
+    // Useful for persisted login states (e.g., after page refresh)
+    if (user && token) {
+      dispatch(fetchRolesThunk());
+    }
+  }, [token, user, dispatch]);
+  
+
   return (
     <ErrorBoundary fallback={<Fallback />} >
       <div className='App' >
@@ -51,7 +67,7 @@ const App:React.FC = () => {
               <Route path='batch' element={<></>}  />
               <Route path='course' element={<></>} />
               <Route path='personnel' element={<PrivateRoute component={Personnel} />}  />
-              <Route path='authorization' element={<></>}  />
+              <Route path='authorization' element={<PrivateRoute component={Authorization} />} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>

@@ -1,39 +1,54 @@
-import React, { useState } from "react";
-import { Image } from "react-bootstrap";
+import React, { memo, useCallback, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import UserDrawer from "./userDrawer";
 
-function StaticHeader() {
+const StaticHeader: React.FC = memo(() => {
     const location = useLocation();
-
     const { user } = useSelector((state: any) => state.auth);
     const [openDrawer, setOpenDrawer] = useState(false);
 
-    function title() {
-        const filtered = location.pathname.slice(1).split("/")
+    const title = useMemo(() => {
+        const filtered = location.pathname.slice(1).split("/");
         return filtered.join(` / `);
-    }
+    }, [location.pathname]);
 
-    const getInitials = (name: string) => {
+    const getInitials = useCallback((name: string) => {
         const nameParts = name.split(' ');
         if (nameParts.length >= 2) {
             return `${nameParts[0][0]}${nameParts[1][0]}`.toUpperCase();
         }
         return name[0].toUpperCase();
-    };
+    }, []);
+
+    const userInitials = useMemo(() => {
+        return (user?.firstname && user?.lastname)
+            ? getInitials(`${user.firstname} ${user.lastname}`)
+            : 'U';
+    }, [user, getInitials]);
+
+    const handleOpenDrawer = useCallback(() => {
+        setOpenDrawer(true);
+    }, []);
 
     return (
-        <React.Fragment>
-            <div className="header p-1"  >
-                <div className="page-title" >{title()}</div>
-                <div className="user-circle" onClick={() => setOpenDrawer(true)}>
-                    {(user?.firstname && user?.lastname) ? getInitials(`${user.firstname} ${user.lastname}`) : 'U'}
-                </div>
-                <UserDrawer user={user} openDrawer={openDrawer} setOpenDrawer={setOpenDrawer} />
+        <div className="header p-1">
+            <div className="page-title">{title}</div>
+            <div
+                className="user-circle"
+                onClick={handleOpenDrawer}
+                role="button"
+                aria-label="Open user menu"
+            >
+                {userInitials}
             </div>
-        </React.Fragment>
-    )
-}
+            <UserDrawer
+                user={user}
+                openDrawer={openDrawer}
+                setOpenDrawer={setOpenDrawer}
+            />
+        </div>
+    );
+});
 
 export default StaticHeader;

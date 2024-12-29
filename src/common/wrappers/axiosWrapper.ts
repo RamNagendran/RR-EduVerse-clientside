@@ -97,6 +97,13 @@ class AxiosWrapper {
                         status,
                         data
                     );
+                case 429:
+                    throw new CustomError(
+                        ErrorType.SERVER,
+                        data?.message || 'Too many requests',
+                        status,
+                        data
+                    );
                 default:
                     throw new CustomError(
                         ErrorType.UNKNOWN,
@@ -139,7 +146,32 @@ class AxiosWrapper {
         }
     }
 
-    // Add other methods (PUT, DELETE, etc.) as needed
+    public async put<T>(url: string, data = {}, config = {}): Promise<T> {
+        try {
+            const response: AxiosResponse<T> = await this.axiosInstance.put(url, data, config);
+            return response.data;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    public async delete<T>(url: string, config = {}): Promise<T> {
+        try {
+            const response: AxiosResponse<T> = await this.axiosInstance.delete(url, config);
+            return response.data;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    public async patch<T>(url: string, data = {}, config = {}): Promise<T> {
+        try {
+            const response: AxiosResponse<T> = await this.axiosInstance.patch(url, data, config);
+            return response.data;
+        } catch (error) {
+            throw error;
+        }
+    }
 }
 
 export const axiosWrapper = AxiosWrapper.getInstance();

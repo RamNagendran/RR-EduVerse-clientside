@@ -1,28 +1,11 @@
 import React from 'react';
-import { ROLE } from '../../../common/constants';
+import { getRoleDescription, ROLE } from '../../../common/constants';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { UserDrawerProps } from '../types/home.type';
 import RRPROJX from '../../../assets/images/SVGs/rrprojx.svg';
 import { Image, OverlayTrigger, Tooltip } from 'react-bootstrap';
 
 const UserDrawer: React.FC<UserDrawerProps> = ({ openDrawer, setOpenDrawer, user }) => {
-
-    const getRoleDescription = (role: string): string => {
-        switch (role) {
-            case 'ADMIN':
-                return 'Super Admin: Full access to all features including user management, permissions control, content management, and system configurations';
-            case 'TRAINER':
-                return 'Trainer: Access to course management, student progress tracking, and content creation';
-            case 'COUNSELOR':
-                return 'Counselor: Access to student counseling features and progress reports';
-            case 'STUDENT':
-                return 'Student: Access to learning materials, assignments, and personal progress tracking';
-            case 'PLACEMENT':
-                return 'Placement: Access to job postings, candidate tracking, and placement statistics';
-            default:
-                return `${role} Role`;
-        }
-    };
 
     const roleBadge = (): JSX.Element => {
         const role = ROLE[user.role_id];

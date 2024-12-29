@@ -11,10 +11,7 @@
         border-top-right-radius: 8px;
         padding: 2px 18px;
         height: 6%;
-        border-top: none;
-        border-left: none;
-        border-right: none;
-        border-bottom: none;
+        border: none !important;
         display: flex;
         align-items: center;
         justify-content: space-between;
