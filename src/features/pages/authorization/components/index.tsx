@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import './scss/index.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -13,7 +13,6 @@ const AUTHORIZATION_CONFIG = {
 
 const Authorization: React.FC = React.memo(() => {
     const [cardClicked, setCardClicked] = React.useState<IRoles | null>(null);
-
     return (
         <div className='authorization'>
             <div className='auth-header'>
@@ -35,6 +34,7 @@ const Authorization: React.FC = React.memo(() => {
                 <CardsDeepdive
                     key={cardClicked.role_id}
                     selectedCard={cardClicked}
+                    setCardClicked={setCardClicked}
                 />
             )}
         </div>

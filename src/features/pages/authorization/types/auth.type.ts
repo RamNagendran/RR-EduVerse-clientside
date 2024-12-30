@@ -33,9 +33,25 @@ export interface RolesState {
     error: string | null;
 }
 
+export interface RoleCardProps {
+    role: IRoles;
+    index: number;
+    isSelected: boolean;
+    onSelect: (role: IRoles | null) => void;
+}
+
+export interface CardsDeepdiveProps {
+    selectedCard: {
+        role_id: number;
+        role_permissions: IPermissions[];
+        users_count: number;
+    };
+    setCardClicked: React.Dispatch<React.SetStateAction<IRoles | null>>;
+}
+
 export interface IUpdatePermissions {
     email: string;
-    authenticated_password: string;
+    password: string;
     role_id: number;
     menu_id: number;
     permissions: number;

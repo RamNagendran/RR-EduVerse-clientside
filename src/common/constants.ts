@@ -1,3 +1,10 @@
+const PERMISSIONS: { [key: string]: number } = {
+    'READ': 1,
+    'CREATE': 2,
+    'UPDATE': 4,
+    'DELETE': 8
+}
+
 const ROLE: { [key: number]: string } = {
     101: 'ADMIN',
     102: 'TRAINER',
@@ -5,11 +12,7 @@ const ROLE: { [key: number]: string } = {
     104: 'PLACEMENT'
 }
 
-interface IMENUS {
-    [key: number]: string
-}
-
-const MENUS: IMENUS = {
+const MENUS: {[key: number]: string} = {
     201: 'COURSE',
     202: 'TASKS',
     203: 'BATCH',
@@ -18,7 +21,7 @@ const MENUS: IMENUS = {
     206: 'PERSONNEL',
     207: 'AUTHORIZATION'
 }
-const MENU_DESCRIPTIONS: IMENUS = {
+const MENU_DESCRIPTIONS: {[key: number]: string} = {
     201: 'Manage course content, curriculum design, and learning resources. Enables creation, updating, and tracking of educational programs.',
     202: 'Task management system for tracking assignments, project progress, and individual/team responsibilities. Facilitates workflow optimization.',
     203: 'Batch management and tracking, including student grouping, scheduling, and performance monitoring across different learning cohorts.',
@@ -45,4 +48,4 @@ const getRoleDescription = (role: string): string => {
     }
 };
 
-export { ROLE, MENUS, MENU_DESCRIPTIONS, getRoleDescription }
+export { PERMISSIONS, ROLE, MENUS, MENU_DESCRIPTIONS, getRoleDescription }

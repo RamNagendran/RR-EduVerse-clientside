@@ -38,15 +38,16 @@ export const fetchRolesThunk = createAsyncThunk<IFetchThunkReturns, void, { reje
                 if (!loggedUser) {
                     return rejectWithValue('No matching role found');
                 }
+                const updatedPermissionPack = { ...defaultPermissionPack };
                 if (loggedUser.length > 0) {
                     loggedUser[0].role_permissions.forEach((rp: IPermissions) => {
                         const menu = MENUS[rp.menu_id];
-                        if (menu && menu in defaultPermissionPack) {
-                            defaultPermissionPack[menu as keyof IPermissonPack] = rp.permissions;
+                        if (menu && menu in updatedPermissionPack) {
+                            updatedPermissionPack[menu as keyof IPermissonPack] = rp.permissions;
                         }
                     })
                 }
-                return { roles: response.data, loggedUser_perms: defaultPermissionPack };
+                return { roles: response.data, loggedUser_perms: updatedPermissionPack };
             }
             return rejectWithValue('Failed to fetch roles');
         } catch (error) {

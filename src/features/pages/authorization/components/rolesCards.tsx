@@ -1,6 +1,6 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import { IRoles } from '../types/auth.type';
+import { IRoles, RoleCardProps } from '../types/auth.type';
 import { ROLE } from '../../../../common/constants';
 
 import Admin from '../../../../assets/images/image/admin.png';
@@ -8,12 +8,6 @@ import Trainer from '../../../../assets/images/image/trainner.png';
 import Counselor from '../../../../assets/images/image/councellor.png';
 import Placement from '../../../../assets/images/image/placements.png';
 
-interface RoleCardProps {
-    role: IRoles;
-    index: number;
-    isSelected: boolean;
-    onSelect: (role: IRoles | null) => void;
-}
 
 const RoleCardItem: React.FC<RoleCardProps> = React.memo(({
     role,
@@ -67,7 +61,8 @@ const RoleCardItem: React.FC<RoleCardProps> = React.memo(({
             style={{
                 animation: `slideIn .5s forwards ${cardStyles.delay}`,
                 boxShadow: cardStyles.boxShadow,
-                backgroundColor: cardStyles.backgroundColor
+                backgroundColor: cardStyles.backgroundColor,
+                transition: "all 0.3s ease-in-out"
             }}
         >
             <div className='r-icon'>
