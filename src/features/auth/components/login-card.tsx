@@ -10,7 +10,7 @@ import EyeClosed from '../../../assets/images/SVGs/eye-closed.svg';
 const styles = {
     input: (hasError: boolean) => ({
         borderRadius: '0px',
-        borderColor: hasError ? 'red' : '#dee2e6'
+        borderColor: hasError ? 'red' : 'rgb(177 177 177)'
     })
 };
 
@@ -41,7 +41,7 @@ const LoginCard: React.FC<LoginCardProps> = ({
                 </Card.Text>
 
                 <FloatingLabel 
-                    controlId="floatingEmailInput" 
+                    controlId="floatingEmailInput compact-floating-label" 
                     label="Email address" 
                     className="w-100 mb-3"
                 >
@@ -56,7 +56,7 @@ const LoginCard: React.FC<LoginCardProps> = ({
                 </FloatingLabel>
 
                 <FloatingLabel
-                    className="password-container w-100 mb-3"
+                    className="compact-floating-label password-container w-100 mb-3"
                     controlId="floatingPasswordInput"
                     label="Password"
                 >

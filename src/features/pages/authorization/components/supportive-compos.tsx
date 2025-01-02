@@ -1,7 +1,7 @@
 import { Button, Modal } from "react-bootstrap";
 import { MENU_DESCRIPTIONS } from "../../../../common/constants";
 import React, { useState } from "react";
-import { confirmModalStyles } from "../utils/common";
+import { confirmModalStyles } from "../utils/confirm-modal-styles";
 
 import EditIcon from '../../../../assets/images/SVGs/icn_Edit.svg';
 import EyeOpen from '../../../../assets/images/SVGs/eye-open.svg';
@@ -56,7 +56,7 @@ const MenuPermissionItem: React.FC<{
             style={isEditing ?
                 {
                     padding: "15px 10px",
-                    boxShadow: "rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px",
+                    boxShadow:"rgba(14, 30, 37, 0.12) 0px 0px 5px 0px, rgba(14, 30, 37, 0.32) 0px 0px 10px 0px",
                     transition: 'all 0.3s ease',
                     borderRadius: "5px",
                     backgroundColor: "#f0f8ff",

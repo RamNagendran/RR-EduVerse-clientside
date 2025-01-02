@@ -53,7 +53,7 @@ const UserDrawer: React.FC<UserDrawerProps> = ({ openDrawer, setOpenDrawer, user
                         <div className='p-2 d-flex align-items-center justify-content-between w-100' >
                             <div className='details-set' >
                                 <div className=' title' >Email</div>
-                                <div title={user.email} className='content' style={{ textTransform: "lowercase" }}  >{user.email}</div>
+                                <div title={user.email} className='content' style={{width: "200px", textTransform: "lowercase" }}  >{user.email}</div>
                             </div>
                             <div className='details-set' >
                                 <div className=' title' >Phone</div>

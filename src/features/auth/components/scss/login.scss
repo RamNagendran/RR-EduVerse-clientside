@@ -78,14 +78,30 @@
 
         .password-container {
             position: relative;
-            height: 40px;
 
             .eye-icon {
                 cursor: pointer;
                 position: absolute;
-                top: 22px;
+                top: 18px;
                 right: 22px;
             }
+        }
+
+        .compact-floating-label {
+            display: flex;
+            align-items: center;
+
+        }
+
+        .form-floating>.form-control {
+            height: 50px !important;
+            min-height: 50px !important;
+            padding: 17px 12px 0px 12px !important;
+        }
+
+        .form-floating>label {
+            padding: 12px !important;
+            color: rgb(104 104 104);
         }
 
         .login-button {
