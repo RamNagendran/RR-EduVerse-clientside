@@ -145,3 +145,65 @@ export const addUserAPI = async (loggedInUser: string, loggedInRole: number, use
         return errorResponse;
     }
 }
+
+export const updateUserAPI = async (loggedInUser: string, loggedInRole: number, changes: Object): Promise<IResponse> => {
+    const toastId = toast.loading('Updating user...');
+    try{
+        const response = await axiosWrapper.patch<IResponse>(
+            USER_ENDPOINTS.PATCH_USER.replace(':username/:role_id', `${loggedInUser}/${loggedInRole}`),
+            changes
+        )
+        toast.dismiss(toastId);
+        if (response?.status !== 200 || !response?.success) {
+            toast.error(response?.message || "Invalid response from server, Try again later");
+            throw new CustomError(ErrorType.SERVER, response?.message || "Invalid response from server, Try again later", response?.status);
+        }
+        toast.success('User updated successfully!');
+        return response;
+    }catch(error){
+        toast.dismiss(toastId);
+        const errorResponse: IResponse = {
+            status: 500,
+            success: false,
+            message: error instanceof CustomError
+                ? error.message
+                : error instanceof Error
+                    ? error.message
+                    : "Something unexpected happened, please try again later"
+        };
+
+        toast.error(errorResponse.message);
+        return errorResponse;
+    }
+}
+
+export const deleteUserAPI = async (loggedInUser: string, loggedInRole: number, deleteDetails: Object): Promise<IResponse> => {
+    const toastId = toast.loading('Deleting user...');
+    try{
+        const response = await axiosWrapper.delete<IResponse>(
+            USER_ENDPOINTS.DELETE_USER.replace(':username/:role_id', `${loggedInUser}/${loggedInRole}`),
+            deleteDetails
+        )
+        toast.dismiss(toastId);
+        if (response?.status !== 200 || !response?.success) {
+            toast.error(response?.message || "Invalid response from server, Try again later");
+            throw new CustomError(ErrorType.SERVER, response?.message || "Invalid response from server, Try again later", response?.status);
+        }
+        toast.success('User deleted successfully!');
+        return response;
+    }catch(error){
+        toast.dismiss(toastId);
+        const errorResponse: IResponse = {
+            status: 500,
+            success: false,
+            message: error instanceof CustomError
+                ? error.message
+                : error instanceof Error
+                    ? error.message
+                    : "Something unexpected happened, please try again later"
+        };
+
+        toast.error(errorResponse.message);
+        return errorResponse;
+    }
+}

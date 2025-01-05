@@ -16,17 +16,21 @@ import DescIcon from '../../../../assets/images/SVGs/desc-icon.svg';
 import { Iuser } from "../types/personnel.type";
 import { ROLE } from "../../../../common/constants";
 import TablePagination from "./table-pagination";
+import MainEditDelete from "./EditDeleteUser/MainEditDelete";
 
 interface ITableData {
     users: Iuser[];
+    getUsers: () => Promise<void>
 }
 
 const UsersTable: React.FC<ITableData> = (props) => {
 
-    const { users } = props;
+    const { users,getUsers } = props;
     const columnHelper = createColumnHelper<any>();
     const [sorting, setSorting] = useState<SortingState>([]);
-
+    const [showUserData, setShowUserData] = useState<boolean>(false);
+    const [userData, setUserData] = useState<Iuser | undefined>()
+    const [saveChanges,setSaveChanges] = useState<boolean>(false)
 
     const handleNameWithId = (info: any): JSX.Element => {
         const overflowClass = { width: "250px", textOverflow: "ellipsis", whiteSpace: "nowrap", overflow: "hidden", marginBottom: "4px" }
@@ -143,7 +147,11 @@ const UsersTable: React.FC<ITableData> = (props) => {
                             <tr key={row.id} className={`table-row  ${(((index + 1) % 2 === 0)) ? "even-row" : "odd-row"}`}>
                                 {row.getVisibleCells().map(cell => {
                                     return (
-                                        <td key={cell.id} style={{ width: cell.column.getSize(), padding: "0px 10px", height: "48px" }}>
+                                        <td key={cell.id} style={{ width: cell.column.getSize(), padding: "0px 10px", height: "48px" }} 
+                                        onClick={() => {
+                                            setShowUserData((prev) => !prev)
+                                            setUserData(row.original)
+                                        }}>
                                             {flexRender(
                                                 cell.column.columnDef.cell,
                                                 cell.getContext()
@@ -158,6 +166,7 @@ const UsersTable: React.FC<ITableData> = (props) => {
             </table>
         </div>
         {users && users.length > 0 && <TablePagination table={table} />}
+        {showUserData && <MainEditDelete showUserData={showUserData} userData={userData} setShowUserData={setShowUserData} getUsers={getUsers}/>}
     </div>
 };
 

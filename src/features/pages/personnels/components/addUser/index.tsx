@@ -38,12 +38,14 @@ const INITIAL_USER_SCHEMA: IUserDetailsSchema = {
   password: false,
   confPassword: false,
   role_id: false,
+  passwordRequirement: false
 }
 
 const PASSWORD_INITIALS: IPASSWORD_INITIALS = {
   confPassword: "",
   isGeneratedToggled: false,
-  isPasswordSame: true
+  isPasswordSame: true,
+  isUsernameShort: false
 }
 
 const AddUser: React.FC<AddUserProps> = ({ getUsers, openModal, setOpenModal }) => {
@@ -102,7 +104,11 @@ const AddUser: React.FC<AddUserProps> = ({ getUsers, openModal, setOpenModal }) 
       setPasswordDetails((prev) => ({ ...prev, isGeneratedToggled: false }))
       return;
     }
-    setPasswordDetails((prev) => ({ ...prev, isGeneratedToggled: true }))
+    if(userDetails["username"].length < 1){
+      setPasswordDetails((prev) => ({ ...prev, isUsernameShort: true }))
+    }else{
+      setPasswordDetails((prev) => ({ ...prev, isGeneratedToggled: true }))
+    }
   }
 
   return (

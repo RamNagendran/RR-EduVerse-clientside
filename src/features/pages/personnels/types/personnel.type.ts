@@ -26,13 +26,15 @@ export interface IUserDetailsSchema {
     lastname: boolean,
     password: boolean,
     confPassword: boolean,
-    role_id: boolean
+    role_id: boolean,
+    passwordRequirement: boolean
 }
 
 export interface IPASSWORD_INITIALS {
     confPassword: string;
     isGeneratedToggled: boolean;
     isPasswordSame: boolean;
+    isUsernameShort: boolean
 }
 
 export interface IBaseResponse<T = null> {

@@ -103,7 +103,7 @@ const Personnel: React.FC = () => {
                     <Button className='add-button' onClick={handleClick}  >+ USER</Button>
                 </div>
             </div>
-            {(!preFetch.loading && filteredUsers.length > 0) && <UsersTable users={filteredUsers} />}
+            {(!preFetch.loading && filteredUsers.length > 0) && <UsersTable users={filteredUsers} getUsers={getUsers}/>}
             {preFetch.loading && <div className="loading-spinner d-flex align-items-center justify-content-center h-100">
                 <div className="spinner-border text-primary" role="status"></div>
             </div>}

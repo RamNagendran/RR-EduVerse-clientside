@@ -51,11 +51,13 @@ const PasswordsPack: React.FC<IPassPackProps> = ({
                     </div>
                     {userDetailsSchema.password ? <label className='not-provided'>* please enter password</label> : null}
                     {passwordDetails.isPasswordSame ? null : <label className='not-provided'>* password and confirm password does not match</label>}
+                    {passwordDetails.isUsernameShort ? <label className='not-provided'>* username must contain more than 2 character</label> : null}
+                    {userDetailsSchema.passwordRequirement ? <label className='not-provided'>* username needed to generate password</label> : null}
                 </div>
                 <div className='password'>
                     <div className='label'><span>*</span> Confirm Password :</div>
                     <div className='input'>
-                        <input className='input-box' name='password' onChange={(e) => handleConfrimPassChange(e)} type={passVisibilities.confPassword ? 'text' : 'password'} placeholder='password' value={passwordDetails.confPassword} />
+                        <input className='input-box' name='password' onChange={(e) => handleConfrimPassChange(e)} type={passVisibilities.confPassword ? 'text' : 'password'} placeholder='confirm password' value={passwordDetails.confPassword} />
                         <img
                             alt="eye-icon"
                             src={passVisibilities.confPassword ? EyeOpen : EyeClosed}
@@ -69,34 +71,29 @@ const PasswordsPack: React.FC<IPassPackProps> = ({
         )
     }
 
-    const generateSecurePassword = useCallback((length: number = 10): string => {
-        const charsets = {
-            lower: "abcdefghijklmnopqrstuvwxyz",
-            upper: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
-            numbers: "0123456789",
-            special: "!@#$%^&*()-_=+[]{}|;:',.<>?"
-        };
+    const generateSecurePassword = useCallback(() => {
+            if(!userDetails.username){
+                setPasswordDetails(prev => ({ ...prev, isGeneratedToggled: false }));
+                setUserDetailsSchema((prev: any) => ({ ...prev, passwordRequirement: true }))
+            }else{
+                setUserDetailsSchema((prev: any) => ({ ...prev, passwordRequirement: false }))
+            }
 
-        const allCharset = Object.values(charsets).join('');
-
-        // Ensure at least one character from each character set
-        const password = [
-            charsets.upper[Math.floor(Math.random() * charsets.upper.length)],
-            charsets.special[Math.floor(Math.random() * charsets.special.length)],
-            charsets.lower[Math.floor(Math.random() * charsets.lower.length)],
-            charsets.numbers[Math.floor(Math.random() * charsets.numbers.length)]
-        ];
-
-        // Fill the rest of the password with random characters
-        while (password.length < length) {
-            password.push(allCharset[Math.floor(Math.random() * allCharset.length)]);
-        }
-
-        // Shuffle the password
-        return password
-            .sort(() => 0.5 - Math.random())
-            .join('');
-    }, []);
+            const charsets = {
+                upper: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+                numbers: "0123456789",
+                special: "@#$%&",
+            };
+                
+            const usernamePrefix = userDetails.username.substring(0, 2);
+            const specialCharacter = charsets.special[Math.floor(Math.random() * charsets.special.length)];
+            const uppercaseLetter = charsets.upper[Math.floor(Math.random() * charsets.upper.length)];
+            const numbers = Array.from({ length: 4 }, () =>
+                charsets.numbers[Math.floor(Math.random() * charsets.numbers.length)]
+            ).join("");
+    
+            return `${usernamePrefix}${specialCharacter}${uppercaseLetter}${numbers}`;
+        }, [userDetails.username]);
 
     const handlePasswordGeneration = useCallback(() => {
 
