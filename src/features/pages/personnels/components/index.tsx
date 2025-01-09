@@ -10,22 +10,20 @@ import { Button } from 'react-bootstrap';
 import UsersTable from './users-table';
 import AddUser from './addUser';
 import RoleDropdown from './roleDropdown';
+import { RootState } from '../../../../stateManager/types';
 
 type IResponse = IBaseResponse<Iuser[]> | IBaseResponse;
 
 const Personnel: React.FC = () => {
 
     const [openModal, setOpenModal] = useState<boolean>(false)
+    const handleClick = () => setOpenModal(true)
 
-    const handleClick = () => {
-        setOpenModal(true)
-    }
-
-    const { user } = useSelector((state: any) => state.auth);
+    const { user } = useSelector((state: RootState) => state.auth);
     const [users, setUsers] = useState<Iuser[]>([]);
     const [usersBackup, setUsersBackup] = useState<Iuser[]>([]);
     const [preFetch, setPreFetch] = useState({ loading: false, message: '' });
-    const [selectedRole, setSelectedRole] = useState<number>();
+    const [selectedRole, setSelectedRole] = useState<number | undefined>();
     const [searchData, setSearchData] = useState<string>('');
 
     const getUsers = useCallback(async () => {
@@ -49,7 +47,7 @@ const Personnel: React.FC = () => {
 
     // Filter users based on selected role
     const filteredUsers = useMemo(() => {
-        return selectedRole ? users.filter(user => user.role_id === Number(selectedRole)) : users;
+        return selectedRole ? users.filter(user => user.role_id === selectedRole) : users;
     }, [users, selectedRole]);
 
 
@@ -94,7 +92,10 @@ const Personnel: React.FC = () => {
                     <input className="search-input" placeholder="search by username, fullName, email..." type="search"
                         value={searchData || ''}
                         onKeyDown={handleKeyPress}
-                        onChange={(e: any) => { setSearchData(e.target.value); if (e.target.value === '') setUsers(usersBackup) }}
+                        onChange={(e: any) => {
+                            setSearchData(e.target.value);
+                            if (e.target.value === '') setUsers(usersBackup)
+                        }}
                     />
                     <img style={{ left: 6, top: 7, position: 'absolute' }} height={14} width={14} src={SearchIcon} alt="search" />
                 </div>
@@ -115,7 +116,8 @@ const Personnel: React.FC = () => {
                             Something went wrong: {preFetch.message}
                         </div>
                     }
-                </div>}
+                </div>
+            }
             {openModal && <AddUser getUsers={getUsers} openModal={openModal} setOpenModal={setOpenModal} />}
         </div>
     );

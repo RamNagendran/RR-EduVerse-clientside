@@ -73,7 +73,7 @@ const UsersTable: React.FC<ITableData> = (props) => {
         }),
         columnHelper.accessor('added_at', {
             header: 'Joined On',
-            cell: (info: any) => moment(info.getValue(), 'DD-MM-YYYY HH:mm:ss').format('DD-MMM-YYYY')
+            cell: (info: any) => moment(info.getValue(), 'DD-MM-YYYY HH:mm:ss').format('DD MMM YYYY')
         }),
         columnHelper.accessor('role_id', {
             header: 'Role',

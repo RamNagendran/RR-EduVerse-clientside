@@ -1,12 +1,14 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import storage from 'redux-persist/lib/storage';
-import {persistReducer, persistStore} from 'redux-persist'
+import { persistReducer, persistStore } from 'redux-persist'
 import Auth from './auth.slice';
 import Roles from './roles.slice';
+import Courses from './courses.slice';
 
 const rootReducer = combineReducers({
   auth: Auth,
-  roles: Roles
+  roles: Roles,
+  courses: Courses
 })
 
 const persistConfig = {
@@ -19,14 +21,14 @@ const persistedReducer = persistReducer(persistConfig, rootReducer)
 const store = configureStore({
   reducer: persistedReducer,
   middleware: getDefaultMiddleware =>
-  getDefaultMiddleware({
-    serializableCheck: false,
-  }),
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 })
 
-const persistor = persistStore(store) 
+const persistor = persistStore(store)
 
-export {store, persistor};
+export { store, persistor };
 // AppDispatch includes:
 // 1. Regular Redux actions
 // 2. Async Thunk actions

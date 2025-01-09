@@ -1,14 +1,54 @@
 import React from 'react';
 import { getRoleDescription, ROLE } from '../../../common/constants';
 import Offcanvas from 'react-bootstrap/Offcanvas';
-import { UserDrawerProps } from '../types/home.type';
+import { Iuser, UserDrawerProps } from '../types/home.type';
 import RRPROJX from '../../../assets/images/SVGs/rrprojx.svg';
 import { Image, OverlayTrigger, Tooltip } from 'react-bootstrap';
 
-const UserDrawer: React.FC<UserDrawerProps> = ({ openDrawer, setOpenDrawer, user }) => {
 
+const DrawerBody: React.FC<{ user: Iuser }> = ({ user }) => {
+    return (
+        <div className="user-info-section">
+            <div className="info-card mb-4 p-2 border rounded">
+                <h5>User Information:</h5>
+                <div className='p-2 d-flex align-items-center justify-content-between w-100' >
+                    <div className='details-set' >
+                        <div className=' title' >First Name</div>
+                        <div title={user.firstname} className='content' >{user.firstname}</div>
+                    </div>
+                    <div className='details-set' >
+                        <div className=' title' >Last Name</div>
+                        <div title={user.lastname} className='content' >{user.lastname}</div>
+                    </div>
+                </div>
+                <div className='p-2 d-flex align-items-center justify-content-between w-100' >
+                    <div className='details-set' >
+                        <div className=' title' >Email</div>
+                        <div title={user.email} className='content' style={{ width: "200px", textTransform: "lowercase" }}  >{user.email}</div>
+                    </div>
+                    <div className='details-set' >
+                        <div className=' title' >Phone</div>
+                        <div title={user.phone.toString()} className='content' style={{ textTransform: "lowercase" }} >+91 - {user.phone}</div>
+                    </div>
+                </div>
+                <div style={{ marginBottom: "10px" }} className='p-2 d-flex align-items-center justify-content-between w-100' >
+                    <div className='details-set' >
+                        <div className=' title' >User Id</div>
+                        <div title={user.user_id} className='content' style={{ textTransform: "lowercase" }} >{user.user_id}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+const UserDrawer: React.FC<UserDrawerProps> = ({
+    openDrawer,
+    setOpenDrawer,
+    user
+}) => {
     const roleBadge = (): JSX.Element => {
-        const role = ROLE[user.role_id];
+        const role = ROLE[user?.role_id];
         return (
             <OverlayTrigger
                 placement="left"
@@ -37,37 +77,7 @@ const UserDrawer: React.FC<UserDrawerProps> = ({ openDrawer, setOpenDrawer, user
                 </Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body>
-                <div className="user-info-section">
-                    <div className="info-card mb-4 p-2 border rounded">
-                        <h5>User Information:</h5>
-                        <div className='p-2 d-flex align-items-center justify-content-between w-100' >
-                            <div className='details-set' >
-                                <div className=' title' >First Name</div>
-                                <div title={user.firstname} className='content' >{user.firstname}</div>
-                            </div>
-                            <div className='details-set' >
-                                <div className=' title' >Last Name</div>
-                                <div title={user.lastname} className='content' >{user.lastname}</div>
-                            </div>
-                        </div>
-                        <div className='p-2 d-flex align-items-center justify-content-between w-100' >
-                            <div className='details-set' >
-                                <div className=' title' >Email</div>
-                                <div title={user.email} className='content' style={{width: "200px", textTransform: "lowercase" }}  >{user.email}</div>
-                            </div>
-                            <div className='details-set' >
-                                <div className=' title' >Phone</div>
-                                <div title={user.phone.toString()} className='content' style={{ textTransform: "lowercase" }} >+91 - {user.phone}</div>
-                            </div>
-                        </div>
-                        <div style={{ marginBottom: "10px" }} className='p-2 d-flex align-items-center justify-content-between w-100' >
-                            <div className='details-set' >
-                                <div className=' title' >User Id</div>
-                                <div title={user.user_id} className='content' style={{ textTransform: "lowercase" }} >{user.user_id}</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <DrawerBody user={user} />
             </Offcanvas.Body>
             <div className="border-top p-3">
                 <div className="d-flex align-items-center justify-content-end">

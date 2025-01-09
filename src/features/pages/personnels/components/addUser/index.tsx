@@ -8,6 +8,7 @@ import { addUserAPI } from '../../api/users.api';
 import UserForm from './user-form';
 import { IBaseResponse, IPASSWORD_INITIALS, Iuser, IUserDetailsSchema } from '../../types/personnel.type';
 import { useSelector } from 'react-redux';
+import { RootState } from '../../../../../stateManager/types';
 
 type IResponse = IBaseResponse<Iuser[]> | IBaseResponse;
 
@@ -47,7 +48,7 @@ const PASSWORD_INITIALS: IPASSWORD_INITIALS = {
 }
 
 const AddUser: React.FC<AddUserProps> = ({ getUsers, openModal, setOpenModal }) => {
-  const {user} = useSelector((state: any) => state.auth);
+  const { user } = useSelector((state: RootState) => state.auth);
   const [userDetails, setUserDetails] = useState<Iuser>(INITIAL_USER_DETAILS);
   const [userDetailsSchema, setUserDetailsSchema] = useState<IUserDetailsSchema>(INITIAL_USER_SCHEMA);
   const [passwordDetails, setPasswordDetails] = useState<IPASSWORD_INITIALS>(PASSWORD_INITIALS)
@@ -79,7 +80,7 @@ const AddUser: React.FC<AddUserProps> = ({ getUsers, openModal, setOpenModal }) 
   const handleClick = async () => {
     setError(false)
     if (!validateForm()) return;
-    const finalUserDetails = {...userDetails,added_by: user.user_id}
+    const finalUserDetails = { ...userDetails, added_by: user.user_id }
     const response: IResponse = await addUserAPI(user.username, user.role_id, finalUserDetails);
     if (!response.success || response?.status !== 200) {
       setError(true)
@@ -93,7 +94,7 @@ const AddUser: React.FC<AddUserProps> = ({ getUsers, openModal, setOpenModal }) 
 
   const handleChange = (e: (React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>)) => {
     let { name, value } = e.target;
-    setUserDetails((prev) => ({ ...prev, [name]: (name === "role_id" || name === "phone")  ? Number(value) : value }))
+    setUserDetails((prev) => ({ ...prev, [name]: (name === "role_id" || name === "phone") ? Number(value) : value }))
     setUserDetailsSchema((prev) => ({ ...prev, [name]: false }))
   }
 

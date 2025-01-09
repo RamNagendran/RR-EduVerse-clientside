@@ -9,7 +9,6 @@ const confirmModalStyles = {
     },
     input: {
         position: 'relative' as const,
-        backgroundColor: 'yellow',
     },
     inputBox: {
         width: '100%',
@@ -38,6 +37,15 @@ const confirmModalStyles = {
         boxShadow: "0 8px 13px rgba(253,70,15,.301961)",
         background: '#df3c0a',
         color: '#fff',
+    },
+    addCourse: {
+        background: '#0466c8',
+        color: '#fff',
+    },
+    error: {
+        color: 'red',
+        fontSize: '12px',
+        fontWeight: 500
     }
 };
 

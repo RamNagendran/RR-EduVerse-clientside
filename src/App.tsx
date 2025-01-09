@@ -9,12 +9,15 @@ import Authorization from './features/pages/authorization/components';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from './stateManager/reducer/store';
 import { fetchRolesThunk } from './stateManager/reducer/rolesThunk';
+import { RootState } from './stateManager/types';
 
 // Lazy loaded components
 const LoginPage = lazy(() => import('./features/auth/components/login'));
 const NotFound = lazy(() => import('./common/error-handlings/notFound'));
 const Home = lazy(() => import('./features/home/components'));
 const Personnel = lazy(() => import('./features/pages/personnels/components'));
+const Course = lazy(() => import('./features/pages/course/components'));
+const SelectedCourse = lazy(() => import('./features/pages/course/components/courseInsights/selectedCourse'));
 
 // Loading component for Suspense fallback
 const Loading = () => (
@@ -43,9 +46,9 @@ const Loading = () => (
  * @returns {JSX.Element} The rendered application with routing and error handling
  */
 
-const App:React.FC = () => {
+const App: React.FC = (): JSX.Element => {
   const dispatch = useDispatch<AppDispatch>();
-  const { user, token } = useSelector((state:any) => state.auth);
+  const { user, token } = useSelector((state: RootState) => state.auth);
 
   useEffect(() => {
     // This will trigger on app load if user is already logged in
@@ -54,7 +57,7 @@ const App:React.FC = () => {
       dispatch(fetchRolesThunk());
     }
   }, [token, user, dispatch]);
-  
+
 
   return (
     <ErrorBoundary fallback={<Fallback />} >
@@ -63,16 +66,17 @@ const App:React.FC = () => {
           <Routes>
             <Route path="/" element={<LoginPage />} />
             <Route path="/home" element={<PrivateRoute component={Home} />} >
-              <Route path='dashboard' element={<></>}  />
-              <Route path='batch' element={<></>}  />
-              <Route path='course' element={<></>} />
-              <Route path='personnel' element={<PrivateRoute component={Personnel} />}  />
+              <Route path='dashboard' element={<></>} />
+              <Route path='batch' element={<></>} />
+              <Route path='course' element={<PrivateRoute component={Course} />} />
+              <Route path='course/:courseId' element={<PrivateRoute component={SelectedCourse} />} />
+              <Route path='personnel' element={<PrivateRoute component={Personnel} />} />
               <Route path='authorization' element={<PrivateRoute component={Authorization} />} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
-      </div> 
+      </div>
     </ErrorBoundary>
   );
 }

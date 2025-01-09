@@ -5,15 +5,15 @@ import { ROLE } from "../../../../common/constants";
 import '../../../../assets/sass/style.scss';
 
 interface IRoleDropdown {
-    selectedRole: any;
-    setSelectedRole: React.Dispatch<React.SetStateAction<any>>;
+    selectedRole: number | undefined;
+    setSelectedRole: React.Dispatch<React.SetStateAction<number | undefined>>;
 }
 
 function RoleDropdown(props: IRoleDropdown): JSX.Element {
     const { selectedRole, setSelectedRole } = props;
 
     return (
-        <Listbox onChange={(e) => setSelectedRole(e)}>
+        <Listbox onChange={(e) => setSelectedRole((parseInt(e)))}>
             <div className="listBox-style position-relative">
                 <Listbox.Button className="position-relative button">
                     {selectedRole && <span title={ROLE[selectedRole]} className="btn-text" >{ROLE[selectedRole]}</span>}

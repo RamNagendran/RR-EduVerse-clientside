@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom'
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import TxtTypingAnime from "./text-typing-anime";
 
 import './scss/login.scss';
@@ -12,9 +12,10 @@ import Login from '../../../assets/images/image/login.png';
 import LoginBck3 from '../../../assets/images/image/login-bck3.jpg';
 import { validateEmail, validatePassword } from "../../../common/utils/password-validate";
 import LoginCard from "./login-card";
-import { setAuth } from "../../../stateManager/reducer/auth.slice";
+import { clearAuth, setAuth } from "../../../stateManager/reducer/auth.slice";
 import { AppDispatch } from "../../../stateManager/reducer/store";
 import { fetchRolesThunk } from "../../../stateManager/reducer/rolesThunk";
+import { RootState } from "../../../stateManager/types";
 
 const UI_CONSTANTS = {
     BOX_SHADOW: 'rgba(0, 0, 0, 0.04) 0px 3px 5px',
@@ -31,6 +32,7 @@ const UI_CONSTANTS = {
 const LoginPage: React.FC = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch<AppDispatch>();
+    const { user, token } = useSelector((state: RootState) => state.auth);
     const [formState, setFormState] = useState<LoginFormState>({
         email: '',
         password: '',
@@ -41,6 +43,13 @@ const LoginPage: React.FC = () => {
         password: '',
         commonErrors: ''
     });
+
+    /* eslint-disable react-hooks/exhaustive-deps */
+    useEffect(() => {
+        // Initial reset of auth states before login...
+        const shouldClearAuth = user && token;
+        if (shouldClearAuth) dispatch(clearAuth());
+    }, []);
 
     const handleInputChange = (field: keyof LoginFormState) => (
         e: React.ChangeEvent<HTMLInputElement>
@@ -106,13 +115,13 @@ const LoginPage: React.FC = () => {
     };
 
     const ErrorMessage: React.FC<{ message: string }> = ({ message }) => (
-        <div 
+        <div
             className={`error-message ${errors.commonErrors ? 'mt-2' : ''}`}
-            style={{ 
-                textAlign: "start", 
-                fontSize: "12px", 
-                fontWeight: 700, 
-                color: "red" 
+            style={{
+                textAlign: "start",
+                fontSize: "12px",
+                fontWeight: 700,
+                color: "red"
             }}
         >
             {message}
@@ -123,20 +132,20 @@ const LoginPage: React.FC = () => {
         <div className="login">
             <div className="left-part">
                 <p className="logo-shine">{UI_CONSTANTS.SHINE_TEXT}</p>
-                <img 
-                    alt="login-img" 
-                    src={Login} 
-                    style={{ height: "70%", width: "70%" }} 
+                <img
+                    alt="login-img"
+                    src={Login}
+                    style={{ height: "70%", width: "70%" }}
                 />
                 <TxtTypingAnime />
             </div>
-            <div 
-                className="right-part" 
-                style={{ 
-                    backgroundImage: `url(${LoginBck3})`, 
-                    backgroundSize: "cover", 
-                    backgroundRepeat: "no-repeat" 
-                }} 
+            <div
+                className="right-part"
+                style={{
+                    backgroundImage: `url(${LoginBck3})`,
+                    backgroundSize: "cover",
+                    backgroundRepeat: "no-repeat"
+                }}
             >
                 <LoginCard
                     formState={formState}

@@ -1,6 +1,8 @@
 import axios, { AxiosInstance, AxiosError, AxiosResponse } from 'axios';
 import { base_url } from '../../config';
 import { CustomError, ErrorType } from '../error-handlings/error-handler';
+import { store } from '../../stateManager/reducer/store';
+import { clearAuth } from '../../stateManager/reducer/auth.slice';
 
 // Error types
 export interface ApiError {
@@ -62,7 +64,7 @@ class AxiosWrapper {
         if (error.response) {
             // Server responded with error status
             const status = error.response.status;
-            const data:any = error?.response?.data;
+            const data: any = error?.response?.data;
             switch (status) {
                 case 400:
                     throw new CustomError(
@@ -73,6 +75,8 @@ class AxiosWrapper {
                     );
                 case 401:
                     localStorage.removeItem('authToken');
+                    store.dispatch(clearAuth());
+                    window.location.pathname = '/';
                     throw new CustomError(
                         ErrorType.AUTH,
                         'Your session has expired. Please log in again.',
@@ -155,9 +159,9 @@ class AxiosWrapper {
         }
     }
 
-    public async delete<T>(url: string, config = {}): Promise<T> {
+    public async delete<T>(url: string, data = {}, config = {}): Promise<T> {
         try {
-            const response: AxiosResponse<T> = await this.axiosInstance.delete(url, config);
+            const response: AxiosResponse<T> = await this.axiosInstance.delete(url, { ...config, data });
             return response.data;
         } catch (error) {
             throw error;

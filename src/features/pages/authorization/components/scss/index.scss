@@ -2,6 +2,7 @@
     height: 100%;
     width: 100%;
     background-color: #fff;
+    overflow: hidden;
     border-radius: 8px;
 
     .auth-header {
@@ -96,7 +97,7 @@
     }
 
     .cards-deepdive {
-        height: 500px;
+        height: 430px;
         overflow-y: auto;
         padding: 18px;
 

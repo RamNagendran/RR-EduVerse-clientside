@@ -11,7 +11,7 @@ const Home: React.FC = () => {
             <MenuBar />
             <div className="w-100 d-flex flex-column">
                 <StaticHeader />
-                <div className="d-flex align-items-center justify-content-center h-100 w-100 g-0 p-3">
+                <div className="d-flex align-items-center justify-content-center h-100 w-100 g-0 p-3 overflow-hidden">
                     <Outlet />
                 </div>
             </div>

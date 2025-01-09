@@ -2,10 +2,11 @@ import React, { memo, useCallback, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import UserDrawer from "./userDrawer";
+import { RootState } from "../../../stateManager/types";
 
 const StaticHeader: React.FC = memo(() => {
     const location = useLocation();
-    const { user } = useSelector((state: any) => state.auth);
+    const { user } = useSelector((state: RootState) => state.auth);
     const [openDrawer, setOpenDrawer] = useState(false);
 
     const title = useMemo(() => {

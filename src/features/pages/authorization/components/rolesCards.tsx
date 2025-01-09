@@ -7,6 +7,7 @@ import Admin from '../../../../assets/images/image/admin.png';
 import Trainer from '../../../../assets/images/image/trainner.png';
 import Counselor from '../../../../assets/images/image/councellor.png';
 import Placement from '../../../../assets/images/image/placements.png';
+import { RootState } from '../../../../stateManager/types';
 
 
 const RoleCardItem: React.FC<RoleCardProps> = React.memo(({
@@ -98,7 +99,7 @@ const RolesCard: React.FC<{
     cardClicked,
     setCardClicked
 }) => {
-    const { roles } = useSelector((state: any) => state.roles);
+    const { roles } = useSelector((state: RootState) => state.roles);
 
     const handleCardSelect = (role: IRoles | null) => {
         setCardClicked(role);

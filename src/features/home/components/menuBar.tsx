@@ -18,6 +18,8 @@ import EmpIcon from '../../../assets/images/SVGs/icn_viewEmp';
 import AuthIcon from '../../../assets/images/SVGs/auth-icon';
 
 import { MenuItem } from "../types/home.type";
+import { RootState } from "../../../stateManager/types";
+import { IPermissonPack } from "../../pages/authorization/types/auth.type";
 
 const MENU_ICON_MAP = {
     'DASHBOARD': AnalyzeIcon,
@@ -27,17 +29,18 @@ const MENU_ICON_MAP = {
     'AUTHORIZATION': AuthIcon
 } as const;
 
-const DESIRED_ORDER = ['DASHBOARD', 'COURSE', 'BATCH', 'PERSONNEL', 'AUTHORIZATION'];
+const DESIRED_ORDER: string[] = ['DASHBOARD', 'COURSE', 'BATCH', 'PERSONNEL', 'AUTHORIZATION'];
 
 const MenuBar: React.FC = memo(() => {
     const navigate = useNavigate();
     const location = useLocation();
     const dispatch = useDispatch<AppDispatch>();
-    const { loggedUser_perms } = useSelector((state: any) => state.roles);
+    const { loggedUser_perms = {} } = useSelector((state: RootState) => state.roles);
 
     const menuItems = useMemo(() => {
         return DESIRED_ORDER.reduce((acc: MenuItem[], prm: string) => {
-            if (loggedUser_perms[prm]?.length > 0 && loggedUser_perms[prm].includes('READ')) {
+            const permissions = loggedUser_perms[prm as keyof IPermissonPack];
+            if (permissions && permissions?.length > 0 && permissions.includes('READ')) {
                 acc.push({
                     path: `/home/${prm.toLowerCase()}`,
                     label: prm,

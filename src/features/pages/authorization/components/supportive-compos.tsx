@@ -1,12 +1,7 @@
-import { Button, Modal } from "react-bootstrap";
+import React from "react";
+import { Button } from "react-bootstrap";
 import { MENU_DESCRIPTIONS } from "../../../../common/constants";
-import React, { useState } from "react";
-import { confirmModalStyles } from "../utils/confirm-modal-styles";
-
 import EditIcon from '../../../../assets/images/SVGs/icn_Edit.svg';
-import EyeOpen from '../../../../assets/images/SVGs/eye-open.svg';
-import EyeClosed from '../../../../assets/images/SVGs/eye-closed.svg';
-
 
 const AVAILABLE_PERMISSIONS = ['READ', 'CREATE', 'UPDATE', 'DELETE'] as const;
 type PermissionType = typeof AVAILABLE_PERMISSIONS[number];
@@ -23,7 +18,7 @@ const PermissionChip: React.FC<{
     isEditing,
     onToggle
 }) => (
-    <div style={{border: isEditing ? "1px solid #888" : "1px solid #888", cursor: isEditing ? 'pointer' : 'default', transition: 'all 0.3s ease-in-out' }}
+    <div style={{ border: isEditing ? "1px solid #888" : "1px solid #888", cursor: isEditing ? 'pointer' : 'default', transition: 'all 0.3s ease-in-out' }}
         className={`permission-chip ${isActive ? 'active' : ''}`}
         onClick={isEditing ? onToggle : undefined}
     >
@@ -56,12 +51,12 @@ const MenuPermissionItem: React.FC<{
             style={isEditing ?
                 {
                     padding: "15px 10px",
-                    boxShadow:"rgba(14, 30, 37, 0.12) 0px 0px 5px 0px, rgba(14, 30, 37, 0.32) 0px 0px 10px 0px",
+                    boxShadow: "rgba(14, 30, 37, 0.12) 0px 0px 5px 0px, rgba(14, 30, 37, 0.32) 0px 0px 10px 0px",
                     transition: 'all 0.3s ease',
                     borderRadius: "5px",
                     backgroundColor: "#f0f8ff",
                     transform: "translateY(-1px)"
-                } : 
+                } :
                 {
                     transition: 'all 0.3s ease'
                 }
@@ -108,15 +103,11 @@ const MenuPermissionItem: React.FC<{
                         <Button
                             className='toggle-btn cancel-toggle-btn'
                             onClick={onCancel}
-                        >
-                            Cancel
-                        </Button>
+                        >Cancel</Button>
                         <Button
                             className='toggle-btn save-toggle-btn'
                             onClick={onSave}
-                        >
-                            Save
-                        </Button>
+                        >Save</Button>
                     </div>
                 )}
             </>
@@ -124,55 +115,4 @@ const MenuPermissionItem: React.FC<{
     );
 });
 
-const PasswordConfirmModal: React.FC<{
-    roleName: string;
-    show: boolean;
-    setShow: React.Dispatch<React.SetStateAction<boolean>>;
-    setAuthenticatedPassword: React.Dispatch<React.SetStateAction<string>>;
-    onConfirm: () => Promise<void>;
-}> = ({ roleName, show, setShow, setAuthenticatedPassword, onConfirm }) => {
-    const [passwordVisibility, setPasswordVisibility] = useState(false);
-
-    const handleCancel = () => {
-        setShow(false);
-        setAuthenticatedPassword('');
-    };
-
-    return (
-        <Modal show={show} >
-            <Modal.Header style={{ backgroundColor: "#002855", color: "#fff" }} closeButton>
-                <Modal.Title style={{ fontSize: "14px", fontWeight: 700 }} >Are you sure you want to update?</Modal.Title>
-            </Modal.Header>
-            <Modal.Body style={{ height: "150px" }} className="d-flex flex-column justify-content-between" >
-                <div style={confirmModalStyles.warning}>
-                    {`Confirm your identity to modify permissions for the ${roleName} role. Please enter your password to proceed.`}
-                </div>
-                <div style={confirmModalStyles.input} >
-                    <input
-                        style={confirmModalStyles.inputBox}
-                        name='password'
-                        onChange={(e) => setAuthenticatedPassword(e.target.value)}
-                        type={passwordVisibility ? 'text' : 'password'}
-                        placeholder='Enter your password' />
-                    <img
-                        alt="eye-icon"
-                        src={passwordVisibility ? EyeOpen : EyeClosed}
-                        onClick={() => setPasswordVisibility(!passwordVisibility)}
-                        style={confirmModalStyles.eyeIcon}
-                    />
-                </div>
-            </Modal.Body>
-            <Modal.Footer style={{ borderTop: "none" }} >
-                <Button style={confirmModalStyles.cancel} onClick={handleCancel}>
-                    Cancel
-                </Button>
-                <Button style={confirmModalStyles.confirm} onClick={onConfirm}>
-                    Confirm
-                </Button>
-            </Modal.Footer>
-        </Modal>
-    );
-};
-
-
-export { MenuPermissionItem, PasswordConfirmModal, PermissionChip };
+export { MenuPermissionItem, PermissionChip };

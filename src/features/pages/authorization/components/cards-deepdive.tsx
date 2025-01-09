@@ -3,9 +3,11 @@ import { getRoleDescription, MENUS, PERMISSIONS, ROLE } from '../../../../common
 import { useDispatch, useSelector } from 'react-redux';
 import { CardsDeepdiveProps, IBaseResponse } from '../types/auth.type';
 import { updateRole } from '../api/authorization.api';
-import { MenuPermissionItem, PasswordConfirmModal } from './supportive-compos';
+import { MenuPermissionItem } from './supportive-compos';
 import { AppDispatch } from '../../../../stateManager/reducer/store';
 import { fetchRolesThunk } from '../../../../stateManager/reducer/rolesThunk';
+import { RootState } from '../../../../stateManager/types';
+import PasswordConfirmModal from '../../../../common/password-confirmation';
 
 
 const AVAILABLE_PERMISSIONS = ['READ', 'CREATE', 'UPDATE', 'DELETE'] as const;
@@ -18,9 +20,12 @@ const CardsDeepdive: React.FC<CardsDeepdiveProps> = React.memo(({
     const dispatch = useDispatch<AppDispatch>();
     const [editingMenuId, setEditingMenuId] = useState<number | null>(null);
     const [permissions, setPermissions] = useState(role_permissions);
-    const { user } = useSelector((state: any) => state.auth);
+    const { user } = useSelector((state: RootState) => state.auth);
     const [authenticatedPassword, setAuthenticatedPassword] = useState('');
-    const [showModal, setShowModal] = useState(false);
+    const [showModal, setShowModal] = useState({
+        update: false,
+        delete: false
+    });
 
     const roleName = useMemo(() => ROLE[role_id], [role_id]);
     const roleDescription = useMemo(() => getRoleDescription(roleName), [roleName]);
@@ -78,7 +83,7 @@ const CardsDeepdive: React.FC<CardsDeepdiveProps> = React.memo(({
             }
         );
         setEditingMenuId(null);
-        setShowModal(false);
+        setShowModal({ update: false, delete: false });
         setAuthenticatedPassword('');
         dispatch(fetchRolesThunk())
         setCardClicked({ role_id, users_count, role_permissions: permissions })
@@ -108,15 +113,16 @@ const CardsDeepdive: React.FC<CardsDeepdiveProps> = React.memo(({
                             onEditToggle={handleEditToggle}
                             onPermissionToggle={togglePermission}
                             onCancel={handleCancel}
-                            onSave={() => setShowModal(true)}
+                            onSave={() => setShowModal({ update: true, delete: false })}
                         />
                     );
                 })}
             </div>
             <PasswordConfirmModal
-                roleName={roleName}
-                show={showModal}
+                name={roleName}
+                show={showModal.update}
                 setShow={setShowModal}
+                authenticatedPassword={authenticatedPassword}
                 setAuthenticatedPassword={setAuthenticatedPassword}
                 onConfirm={handleUpdate}
             />
